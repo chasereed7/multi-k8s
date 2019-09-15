@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t chasereed7/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true chasereed7/react-test npm test
+
+after_success:
+  - docker build -t chasereed7/multi-client ./client
+  - docker build -t chasereed7/multi-nginx ./nginx
+  - docker build -t chasereed7/multi-server ./server
+  - docker build -t chasereed7/multi-worker ./worker
+
+
+  #must log into docker hub
+  #take those images and push them to docker hub
+- echo "$DOCKER_PASSWORD" | DOCKER LOGIN -u "$DOCKER_ID" --password-sdn
+#to send to docker
+- docker push chasereed7/multi-client 
+- docker push chasereed7/multi-nginx 
+- docker push chasereed7/multi-server 
+- docker push chasereed7/multi-worker
