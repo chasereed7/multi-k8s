@@ -16,7 +16,7 @@ before_install:
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t chasereed7/react-test -f ./client/Dockerfile.dev ./client
-#null should be fixed
+#null should be fixed, and test removed
 
  
 script:
