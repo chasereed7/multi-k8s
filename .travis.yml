@@ -20,7 +20,7 @@ before_install:
 
  
 script:
-  - docker run chasereed7/react-test npm run test -- --coverage
+  - docker run chasereed7/react-test npm test -- --coverage
 
 
 deploy:
